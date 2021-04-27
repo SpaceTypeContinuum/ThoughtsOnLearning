@@ -1,0 +1,94 @@
+html,
+body {
+    height: auto;
+    background-color: black;
+    font-family: 'Adelle Mono Flex';
+    color: white;
+    margin: 0;
+}
+
+.panel {
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    /* border: 2px solid purple; */
+    display: flex;
+    box-sizing: border-box;
+    /* border-top: 2px solid white; */
+    /* border-bottom: 2px solid white; */
+}
+
+.markTest {
+    background-color: tomato;
+}
+
+
+/* Clear floats after the columns */
+
+
+/* .panel:after {
+    content: "";
+    display: table;
+    clear: both;
+  } */
+
+h1 {
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 20px;
+    padding-bottom: 0px;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+h2 {
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.columnWide {
+    float: left;
+    width: 67%;
+    /* border: 2px solid yellow; */
+}
+
+.columnNarrow {
+    float: left;
+    width: 32%;
+    /* border: 2px solid yellow; */
+}
+
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+
+@media screen and (max-width: 600px) {
+    .columnWide {
+        width: 100%;
+    }
+    .columnNarrow {
+        width: 100%;
+    }
+}
+
+p {
+    font-weight: normal;
+    font-size: 16px;
+    margin-left: 50px;
+    margin-right: 50px;
+    line-height: 150%;
+}
+
+@font-face {
+    font-family: 'Adelle Mono Flex';
+    font-weight: normal;
+    src: url('assets/fonts/AdelleMonoFlex-Regular.woff2') format('woff2'), url('assets/fonts/AdelleMonoFlex-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Adelle Mono Flex';
+    font-weight: bold;
+    src: url('assets/fonts/AdelleMonoFlex-Bold.woff2') format('woff2'), url('assets/fonts/AdelleMonoFlex-Bold.woff') format('woff');
+}
