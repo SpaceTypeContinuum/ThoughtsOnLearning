@@ -6,14 +6,16 @@
 
 
 class Emitter {
-    constructor(x, y) {
-        this.position = createVector(x, y);
+    constructor(p, frameSpeed, x, y) {
+        this.p = p;
+        this.position = this.p.createVector(x, y);
         this.particles = [];
+        this.frameSpeed = frameSpeed;
     }
 
     emit() {
-        if (frameCount % frameSpeed == 0) {
-            this.particles.push(new Particle(this.position.x, this.position.y));
+        if (this.p.frameCount % this.frameSpeed == 0) {
+            this.particles.push(new nineParticle(this.p, this.position.x, this.position.y));
         }
     }
 

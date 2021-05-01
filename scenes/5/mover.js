@@ -6,13 +6,14 @@
 
 
 class Mover {
-    constructor(x, y, m) {
-        this.pos = createVector(x, y);
+    constructor(p, x, y, m) {
+        this.p = p;
+        this.pos = this.p.createVector(x, y);
         this.vel = p5.Vector.random2D();
         this.vel.mult(5);
-        this.acc = createVector(0, 0);
+        this.acc = this.p.createVector(0, 0);
         this.mass = m;
-        this.r = sqrt(this.mass) * 2;
+        this.r = this.p.sqrt(this.mass) * 2;
 
         this.angle = 0;
         this.angleV = 0;
@@ -37,19 +38,19 @@ class Mover {
     }
 
     show() {
-        noStroke();
-        strokeWeight(2);
-        fill(255);
-        push();
-        translate(this.pos.x, this.pos.y);
+        this.p.noStroke();
+        this.p.strokeWeight(2);
+        this.p.fill(255);
+        this.p.push();
+        this.p.translate(this.pos.x, this.pos.y);
         this.angle = -1 * this.vel.heading();
-        rotate(this.angle);
-        textSize(this.r);
-        text('ahh', 0, 0);
+        this.p.rotate(this.angle);
+        this.p.textSize(this.r);
+        this.p.text('ahh', 0, 0);
         // line(0, 0, this.r, 0);
         // stroke(255);
         // noFill();
         // ellipse(0, 0, this.r * 2);
-        pop();
+        this.p.pop();
     }
 }

@@ -12,34 +12,41 @@ var scene1 = function(settings) {
 
         // text to points 
         let font;
-        let fontSize = 300;
+        let fontSize = 200;
 
         p.preload = function() {
-            font = p.loadFont('scenes/1/assets/NotoSans-Thin.ttf');
+            font = p.loadFont('assets/fonts/Noto/NotoSans-Thin.ttf');
         }
 
         p.setup = function() {
             var sectionDiv = document.getElementById('scene1panel');
-            var canvasDiv = document.getElementById('scene1');
             var sectionWidth = sectionDiv.offsetWidth;
             var sectionHeight = sectionDiv.offsetHeight;
             var sketchCanvas = p.createCanvas(sectionWidth, sectionHeight); // change this later
-            // console.log(sketchCanvas);
             sketchCanvas.parent("scene1");
 
-
-            // p.createCanvas(1200, 400);
-
-            // mouse = new Obstacle(mouseX, mouseY, 20);
-            // console.log(mouse);
-
             // making text to points
-            points = font.textToPoints('KINETIC', 85, 300, fontSize, {
+            text2Point = font.textToPoints('LEARNING', 0, 0, fontSize, {
                 sampleFactor: 0.03,
                 simplifyThreshold: 0
             })
-            for (let i = 0; i < points.length; i++) {
-                flock.push(new Boid(p, points[i].x, points[i].y));
+
+            let pointTrackerX = [];
+            let pointTrackerY = [];
+            for (let i = 0; i < text2Point.length; i++) {
+                // flock.push(new Boid(p, tempText2Point[i].x, tempText2Point[i].y));
+                pointTrackerX.push(text2Point[i].x)
+                pointTrackerY.push(text2Point[i].y)
+            }
+
+            // centering happens here!
+            let text2pointWidth = p.max(pointTrackerX) - p.min(pointTrackerX);
+            let text2pointHeight = p.max(pointTrackerY) - p.min(pointTrackerY);
+            let text2pointXVal = (p.width - text2pointWidth) / 2;
+            let text2pointYVal = (p.height - text2pointHeight) / 2 + text2pointHeight;
+
+            for (let i = 0; i < text2Point.length; i++) {
+                flock.push(new Boid(p, text2Point[i].x + text2pointXVal, text2Point[i].y + text2pointYVal));
             }
 
         }

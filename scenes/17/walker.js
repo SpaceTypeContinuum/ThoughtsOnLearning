@@ -1,14 +1,16 @@
 class Walker {
 
-    constructor(x, y) {
-        if (arguments.length == 2) {
-            this.pos = createVector(x, y);
+    constructor(p, radius, x, y) {
+        this.p = p;
+        this.r = radius;
+        if (arguments.length == 4) {
+            this.pos = this.p.createVector(x, y);
             this.stuck = true;
         } else {
-            this.pos = randomPoint();
+            this.pos = randomPoint(this.p);
+
             this.stuck = false;
         }
-        this.r = radius;
     }
 
 
@@ -20,12 +22,13 @@ class Walker {
         this.light = light;
     }
 
-    walk() {
+    walk(p) {
+        this.p = p;
         var vel = p5.Vector.random2D();
         // var vel = createVector(random(-1, 1), random(-0.5, 1));
         this.pos.add(vel.mult(5));
-        this.x = constrain(this.x, 0, width);
-        this.y = constrain(this.y, 0, height);
+        this.pos.x = this.p.constrain(this.pos.x, 0, this.p.width);
+        this.pos.y = this.p.constrain(this.pos.y, 0, this.p.height);
     }
     checkStuck(others) {
 
@@ -41,13 +44,13 @@ class Walker {
     }
 
     show() {
-        noStroke(255, 100);
+        this.p.noStroke(255, 100);
         if (this.stuck && typeof this.hu !== 'undefined' && typeof this.light !== 'undefined') {
-            fill(this.hu, this.light, 100, 1);
+            this.p.fill(this.hu, this.light, 100, 1);
         } else {
-            fill(360, 0, 255);
+            this.p.fill(360, 0, 255);
         }
-        ellipse(this.pos.x, this.pos.y, this.r * 2, this.r * 2);
+        this.p.ellipse(this.pos.x, this.pos.y, this.r * 2, this.r * 2);
     }
 }
 
@@ -57,8 +60,9 @@ function distSq(a, b) {
     return dx * dx + dy * dy;
 }
 
-function randomPoint() {
-    var i = floor(random(4));
+function randomPoint(p) {
+    this.p = p;
+    var i = this.p.floor(this.p.random(4));
 
     // Points generating from random points
     // var x = random(width);
@@ -66,17 +70,17 @@ function randomPoint() {
     // return createVector(x, y);
 
     if (i === 0) {
-        let x = random(width);
-        return createVector(x, 0);
+        let x = this.p.random(this.p.width);
+        return this.p.createVector(x, 0);
     } else if (i === 1) {
-        let x = random(width);
-        return createVector(x, height);
+        let x = this.p.random(this.p.width);
+        return this.p.createVector(x, this.p.height);
     } else if (i === 2) {
-        let y = random(height);
-        return createVector(0, y);
+        let y = this.p.random(this.p.height);
+        return this.p.createVector(0, y);
     } else {
-        let y = random(height);
-        return createVector(width, y);
+        let y = this.p.random(this.p.height);
+        return this.p.createVector(this.p.width, y);
     }
 
 

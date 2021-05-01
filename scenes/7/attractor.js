@@ -1,17 +1,18 @@
-class Attractor {
+class sevenAttractor {
 
-    constructor(x, y) {
-        this.pos = createVector(x, y);
-        this.origin = createVector(x, y);
+    constructor(p, x, y) {
+        this.p = p;
+        this.pos = this.p.createVector(x, y);
+        this.origin = this.p.createVector(x, y);
         this.vel = p5.Vector.random2D();
-        this.vel.mult(random(2));
+        this.vel.mult(p.random(2));
 
     }
 
 
     update() {
-        let mouse = createVector(mouseX, mouseY);
-        if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 - 50 && mouseY < height / 2 + 50) {
+        let mouse = this.p.createVector(this.p.mouseX, this.p.mouseY);
+        if (this.p.mouseX > this.p.width / 2 - 50 && this.p.mouseX < this.p.width / 2 + 50 && this.p.mouseY > this.p.height / 2 - 50 && this.p.mouseY < this.p.height / 2 + 50) {
             this.acc = p5.Vector.sub(mouse, this.pos);
             this.acc.setMag(1);
             this.vel.add(this.acc);
@@ -27,7 +28,7 @@ class Attractor {
     }
 
     show() {
-        fill(255, 100);
-        ellipse(this.pos.x, this.pos.y, 5);
+        this.p.fill(255, 100);
+        this.p.ellipse(this.pos.x, this.pos.y, 5);
     }
 }

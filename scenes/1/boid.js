@@ -10,8 +10,8 @@ class Boid {
         this.velocity = p5.Vector.random2D();
         this.velocity.setMag(0);
         this.acceleration = this.p.createVector();
-        this.maxForce = 0.1;
-        this.maxSpeed = 3;
+        this.maxForce = 0.5;
+        this.maxSpeed = 10;
         this.activated = false;
         this.perceptionRadius = 25;
         this.activateDiameter = 10;
@@ -136,7 +136,7 @@ class Boid {
     show(circleSize) {
         this.p.noStroke();
         this.p.fill(255);
-        this.p.textSize(35);
+        this.p.textSize(15);
         if (this.activated == false) {
             this.p.stroke(255);
             this.p.strokeWeight(1);
@@ -152,7 +152,7 @@ class Boid {
             // text('ahh', 0, 0);
             // pop();
 
-            this.p.text('type', this.position.x, this.position.y);
+            this.p.text('learning', this.position.x, this.position.y);
         }
     }
 

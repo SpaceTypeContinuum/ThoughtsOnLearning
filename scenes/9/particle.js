@@ -7,15 +7,16 @@
 // var mouseDist;
 // var currentWord;
 
-class Particle {
-    constructor(x, y) {
-        this.pos = createVector(x, y);
+class nineParticle {
+    constructor(p, x, y) {
+        this.p = p;
+        this.pos = this.p.createVector(x, y);
         this.vel = p5.Vector.random2D();
-        this.vel.mult(random(0.5, 2));
-        this.acc = createVector(0, 0);
+        this.vel.mult(this.p.random(0.5, 2));
+        this.acc = this.p.createVector(0, 0);
         this.r = 20;
         this.lifetime = 255;
-        this.mouse = createVector(mouseX, mouseY);
+        this.mouse = this.p.createVector(this.p.mouseX, this.p.mouseY);
         this.desired = p5.Vector.sub(this.mouse, this.pos);
         this.steer = p5.Vector.sub(this.desired, this.vel);
         this.mouseDist = this.desired.mag();
@@ -27,9 +28,9 @@ class Particle {
         // changing the word
         this.word = 'not set';
         if (this.mouseDist < 50) {
-            this.word = 'ahhh';
+            this.word = 'unlearning';
         } else {
-            this.word = 'worry';
+            this.word = 'learning';
         }
     }
 
@@ -48,7 +49,7 @@ class Particle {
             this.steer.limit(this.maxforce);
             this.acc.add(this.steer);
         } else {
-            var noSpeed = createVector(0, 0);
+            var noSpeed = this.p.createVector(0, 0);
             this.acc.add(noSpeed);
         }
     }
@@ -79,9 +80,9 @@ class Particle {
     show() {
         // stroke(255, this.lifetime);
         // strokeWeight(2);
-        fill(255, this.lifetime);
-        textSize(this.r);
-        text(this.word, this.pos.x, this.pos.y);
+        this.p.fill(255, this.lifetime);
+        this.p.textSize(this.r);
+        this.p.text(this.word, this.pos.x, this.pos.y);
         // ellipse(this.pos.x, this.pos.y, this.r * 2);
     }
 }

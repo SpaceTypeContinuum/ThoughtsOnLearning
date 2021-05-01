@@ -1,63 +1,74 @@
 // Adapted from Coding Train AKA Daniel Shiffman
 // Inspired by code from: https://youtu.be/kKT0v3qhIQY
 
-function Tree(density, startPosX, startPosY, charWidth, char, wordSize) {
+function Tree(p, font, startRootNum, density, startPosX, startPosY, charWidth, char, fontSize, max_dist, min_dist) {
     this.leaves = [];
     this.branches = [];
+    this.p = p;
+    this.font = font;
+    this.startRootNum = startRootNum;
+    this.max_dist = max_dist;
+    this.min_dist = min_dist;
+    this.fontSize = fontSize;
+    this.density = density;
 
     // BOUNDARY CHECK using a background layer
-    let tempCanvas = createGraphics(width, height);
+    let tempCanvas = this.p.createGraphics(this.p.width, this.p.height);
     tempCanvas.fill(100);
-    tempCanvas.textFont(myFont);
-    tempCanvas.textSize(wordSize);
+    tempCanvas.textFont(this.font);
+    tempCanvas.textSize(this.fontSize);
     tempCanvas.text(char, startPosX, startPosY);
 
     // MAKE LEAVES
+    let leafNumCurrent = this.density;
+    let leafMaxTries = leafNumCurrent * 1.5;
 
-    for (var i = 0; i < density; i++) {
-        let tempPos = createVector(random(startPosX, startPosX + charWidth), random(startPosY, startPosY - charWidth * 1.25));
+    for (var i = 0; i < leafNumCurrent; i++) {
+        let tempPos = this.p.createVector(this.p.random(startPosX, startPosX + charWidth), this.p.random(startPosY, startPosY - this.fontSize));
         // check if tempPos is within B/W bounds
         let sampleColor = tempCanvas.get(tempPos.x, tempPos.y);
-
-        if (sampleColor[0] == 100) {
-            this.leaves.push(new Leaf(tempPos.x, tempPos.y));
+        if (leafNumCurrent < leafMaxTries && sampleColor[0] == 100) {
+            this.leaves.push(new Leaf(p, tempPos.x, tempPos.y));
+        } else if (leafNumCurrent > leafMaxTries) {
+            console.log("leafNumCurrent exceeds leafMaxTries");
+            break;
         } else {
-            density += 1;
+            leafNumCurrent += 1;
         }
     }
+
     // console.log('density Count is ' + density)
 
     // MAKE ROOT
-    let rootNum = startRootNum; // could change later
+    let rootNumMaxTries = this.startRootNum + 20; // Maximum number of tries to make roots
+    let rootNumCurrent = this.startRootNum;
     let rootPos = [];
-    for (let i = 0; i < rootNum; i++) {
-
-        // making sure sketch doesn't crash!
-        if (i > 100) {
-            console.log("Something is wrong, can't find a place to place roots!")
-            break;
-        }
+    for (let i = 0; i < rootNumCurrent; i++) {
 
         // making a 'root' start from inside the letter
-        let tempPos = createVector(random(startPosX, startPosX + charWidth), random(startPosY, startPosY - charWidth));
+        let tempPos = this.p.createVector(this.p.random(startPosX, startPosX + charWidth), this.p.random(startPosY, startPosY - charWidth));
 
         // check if tempPos is within B/W bounds
         let sampleColor = tempCanvas.get(tempPos.x, tempPos.y);
 
         // Resample root pos if tempPos is not within bounds
-        if (sampleColor[0] == 100) {
+        if (rootNumCurrent < rootNumMaxTries && sampleColor[0] == 100) {
             rootPos.push(tempPos);
+        } else if (rootNumCurrent > rootNumMaxTries) {
+            console.log("rootNumCurrent exceeds rootNumMax")
+            break;
         } else {
-            rootNum += 1;
+            rootNumCurrent += 1;
         }
 
     }
 
 
     let roots = [];
-    var dir = createVector(0, -1);
+    var dir = this.p.createVector(0, -1);
     for (let i = 0; i < rootPos.length; i++) {
-        let root = new Branch(null, rootPos[i], dir)
+
+        let root = new Branch(this.p, null, rootPos[i], dir)
         this.branches.push(root);
         var current = root;
         var found = false;
@@ -72,18 +83,18 @@ function Tree(density, startPosX, startPosY, charWidth, char, wordSize) {
                 }
             }
             if (!found) {
-                // failCount += 1;
-                console.log("failcount is " + failCount);
+                failCount += 1;
+                console.log("failcount is " + failCount); // ERROR IS HERE
 
                 // if I delete it it still works, what's this doing??
 
                 var branch = current.next();
                 current = branch;
                 this.branches.push(current);
-                // if (failCount > 10) {
-                //     console.log("failcount is " + failCount);
-                //     break;
-                // }
+                if (failCount > 100) {
+                    console.log("failcount is " + failCount);
+                    break;
+                }
             }
 
         }
@@ -93,12 +104,12 @@ function Tree(density, startPosX, startPosY, charWidth, char, wordSize) {
         for (var i = 0; i < this.leaves.length; i++) {
             var leaf = this.leaves[i];
             var closestBranch = null;
-            var record = max_dist;
+            var record = this.max_dist;
 
             for (var j = 0; j < this.branches.length; j++) {
                 var branch = this.branches[j];
                 var d = p5.Vector.dist(leaf.pos, branch.pos);
-                if (d < min_dist) {
+                if (d < this.min_dist) {
                     leaf.reached = true;
                     closestBranch = null;
                     break;
@@ -140,13 +151,13 @@ function Tree(density, startPosX, startPosY, charWidth, char, wordSize) {
 
         if (debugView) {
             // DEBUGGING VIEW FOR LETTERS!
-            image(tempCanvas, 0, 0);
+            this.p.image(tempCanvas, 0, 0);
 
             // root start points are RED
             tempCanvas.noStroke();
             tempCanvas.fill(255, 0, 0);
             for (let i = 0; i < rootPos.length; i++) {
-                tempCanvas.ellipse(rootPos[i].x, rootPos[i].y, 10);
+                tempCanvas.ellipse(rootPos[i].x, rootPos[i].y, 5);
             }
 
             // shows unreached leaves in GREEN
