@@ -6,7 +6,7 @@
 
 
 class Mover {
-    constructor(p, x, y, m) {
+    constructor(p, x, y, m, word) {
         this.p = p;
         this.pos = this.p.createVector(x, y);
         this.vel = p5.Vector.random2D();
@@ -14,10 +14,11 @@ class Mover {
         this.acc = this.p.createVector(0, 0);
         this.mass = m;
         this.r = this.p.sqrt(this.mass) * 2;
-
+        this.word = word;
         this.angle = 0;
         this.angleV = 0;
         this.angleA = 0;
+        this.wordWidth = this.p.textWidth(this.word);
     }
 
     applyForce(force) {
@@ -46,7 +47,7 @@ class Mover {
         this.angle = -1 * this.vel.heading();
         this.p.rotate(this.angle);
         this.p.textSize(this.r);
-        this.p.text('ahh', 0, 0);
+        this.p.text(this.word, this.wordWidth / 2, 0);
         // line(0, 0, this.r, 0);
         // stroke(255);
         // noFill();

@@ -8,10 +8,11 @@ var scene5 = function(settings) {
         let attractor;
         let thinFont;
         let boldFont;
+        let words = ['reader', 'plants', 'cat', 'dog', 'typographer', 'teacher', 'student', 'climber', 'dancer', 'partner']
 
         p.preload = function() {
-            thinFont = p.loadFont('assets/fonts/Noto/NotoSans-Thin.ttf');
-            boldFont = p.loadFont('assets/fonts/Noto/NotoSans-Bold.ttf');
+            thinFont = p.loadFont('assets/fonts/AdelleMonoFlex-Regular.woff');
+            boldFont = p.loadFont('assets/fonts/AdelleMonoFlex-Bold.woff');
         }
 
         p.setup = function() {
@@ -25,10 +26,10 @@ var scene5 = function(settings) {
                 let x = p.random(p.width);
                 let y = p.random(p.height);
                 let m = p.random(50, 150);
-                movers[i] = new Mover(p, x, y, m);
+                movers[i] = new Mover(p, x, y, m, p.random(words));
             }
             p.textFont(boldFont);
-            attractor = new Attractor(p, p.width / 2, p.height / 2, 200, 'IDENTITY');
+            attractor = new Attractor(p, p.width / 2, p.height / 2, 200, 'Identity');
             p.background(0);
         }
 
