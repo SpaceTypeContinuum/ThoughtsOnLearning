@@ -29,7 +29,7 @@ var scene9 = function(settings) {
             p.textFont(customFont);
             for (var i = 0; i < maxEmitters; i++) {
 
-                emitters.push(new Emitter(p, frameSpeed, p.random(0, p.width), p.random(0, p.height)));
+                emitters.push(new Emitter(p, frameSpeed, p.random(p.width * 0.15, p.width * 0.85), p.random(p.height * 0.15, p.height * 0.85)));
                 // console.log(emitters[i])
             }
         }

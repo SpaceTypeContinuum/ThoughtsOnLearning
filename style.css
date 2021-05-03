@@ -7,6 +7,33 @@ body {
     margin: 0;
 }
 
+img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block
+}
+
+h1 {
+    padding-left: 50px;
+    padding-right: 50px;
+    font-weight: bold;
+    font-size: 35px;
+}
+
+h2 {
+    padding-left: 50px;
+    padding-right: 50px;
+    font-size: 30px;
+}
+
+p {
+    font-weight: normal;
+    font-size: 16px;
+    margin-left: 50px;
+    margin-right: 50px;
+    line-height: 150%;
+}
+
 .panel {
     height: 100vh;
     position: sticky;
@@ -18,9 +45,15 @@ body {
     border-top: 2px solid white;
     margin-left: auto;
     margin-right: auto;
+    align-items: center;
+}
+
+.black {
+    background-color: rgba(0, 0, 0, 1);
 }
 
 .text {
+    display: flex;
     max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
@@ -30,62 +63,16 @@ body {
     background-color: tomato;
 }
 
-
-/* Clear floats after the columns */
-
-
-/* .panel:after {
-    content: "";
-    display: table;
-    clear: both;
-  } */
-
-h1 {
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-top: 20px;
-    padding-bottom: 0px;
-    font-weight: bold;
-    font-size: 40px;
-}
-
-h2 {
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
-
 .columnWide {
     float: left;
     width: 67%;
-    /* border: 2px solid yellow; */
+    /* border: 2px solid greenyellow; */
 }
 
 .columnNarrow {
     float: left;
     width: 32%;
     /* border: 2px solid yellow; */
-}
-
-
-/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-
-@media screen and (max-width: 600px) {
-    .columnWide {
-        width: 100%;
-    }
-    .columnNarrow {
-        width: 100%;
-    }
-}
-
-p {
-    font-weight: normal;
-    font-size: 16px;
-    margin-left: 50px;
-    margin-right: 50px;
-    line-height: 150%;
 }
 
 @font-face {
@@ -98,4 +85,16 @@ p {
     font-family: 'Adelle Mono Flex';
     font-weight: bold;
     src: url('assets/fonts/AdelleMonoFlex-Bold.woff2') format('woff2'), url('assets/fonts/AdelleMonoFlex-Bold.woff') format('woff');
+}
+
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+
+@media screen and (max-width: 600px) {
+    .columnWide {
+        width: 100%;
+    }
+    .columnNarrow {
+        width: 100%;
+    }
 }

@@ -27,13 +27,25 @@ var scene7 = function(settings) {
             // background(50);
 
             // making text to points
-            let points;
-            points = font.textToPoints('ANXIETY', p.width / 6, p.height / 1.78, fontSize, {
+            text2Point = font.textToPoints('ANXIETY', 0, 0, fontSize, {
                 sampleFactor: 0.045,
                 simplifyThreshold: 0
             })
-            for (let i = 0; i < points.length; i++) {
-                attractors.push(new sevenAttractor(p, points[i].x, points[i].y));
+            let pointTrackerX = [];
+            let pointTrackerY = [];
+            for (let i = 0; i < text2Point.length; i++) {
+                // flock.push(new Boid(p, tempText2Point[i].x, tempText2Point[i].y));
+                pointTrackerX.push(text2Point[i].x)
+                pointTrackerY.push(text2Point[i].y)
+            }
+            // centering happens here!
+            let text2pointWidth = p.max(pointTrackerX) - p.min(pointTrackerX);
+            let text2pointHeight = p.max(pointTrackerY) - p.min(pointTrackerY);
+            let text2pointXVal = (p.width - text2pointWidth) / 2;
+            let text2pointYVal = (p.height - text2pointHeight) / 2 + text2pointHeight;
+
+            for (let i = 0; i < text2Point.length; i++) {
+                attractors.push(new sevenAttractor(p, text2Point[i].x + text2pointXVal, text2Point[i].y + text2pointYVal));
             }
 
         }
@@ -46,7 +58,7 @@ var scene7 = function(settings) {
             if (!settings.enabled) {
                 return;
             }
-            p.background(50)
+            p.background(0)
             p.stroke(255);
             p.strokeWeight(4)
             for (var i = 0; i < attractors.length; i++) {

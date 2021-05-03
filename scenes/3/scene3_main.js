@@ -32,12 +32,12 @@ var scene3 = function(settings) {
             for (let i = 0; i < text2Point.length; i++) {
                 pointTrackerY.push(text2Point[i].y)
             }
-            let text2pointHeight = p.max(pointTrackerY) - p.min(pointTrackerY);
+            let text2PointHeight = p.max(pointTrackerY) - p.min(pointTrackerY);
 
             // place each Char Tree
             // Tree(density, startPosX, startPosY, charWidth, char, wordSize)
             let wordStartXpos = (p.width - p.textWidth(word)) / 2;
-            let wordStartYpos = (p.height - text2pointHeight) / 2 + text2pointHeight;
+            let wordStartYpos = (p.height - text2PointHeight) / 2 + text2PointHeight;
 
             for (let i = 0; i < word.length; i++) {
                 let charWidth = p.textWidth(word[i]);
@@ -53,7 +53,7 @@ var scene3 = function(settings) {
             if (!settings.enabled) {
                 return;
             }
-            console.log("drawing!")
+            // console.log("drawing!")
             p.background(0);
             p.frameRate(10);
             for (let i = 0; i < trees.length; i++) {

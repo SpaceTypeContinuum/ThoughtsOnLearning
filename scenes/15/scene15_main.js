@@ -1,16 +1,16 @@
 // from Coding challenge #34 of Coding Train on Youtube
-var scene17 = function(settings) {
+var scene15 = function(settings) {
     return function(p) {
         var tree = [];
         var walkers = [];
         // var r = 4;
-        var maxWalkers = 50;
-        var iterations = 1000;
+        var maxWalkers = 500;
+        var iterations = 5;
         var radius = 10;
         var shrink = 0.995;
         var hu = 0;
         var light = 0;
-        var size = 120;
+        var fontSize = 120;
         // var points = [];
 
         // text to points 
@@ -28,18 +28,30 @@ var scene17 = function(settings) {
             // }
 
             // making text to points
-            points = font.textToPoints('COMMUNITIES', p.width / 4, p.height / 1.78, size, {
-                    sampleFactor: 0.045,
-                    simplifyThreshold: 0
-                })
-                // print(font)
+            text2Point = font.textToPoints('COMMUNITIES', 0, 0, fontSize, {
+                sampleFactor: 0.045,
+                simplifyThreshold: 0
+            })
+
+            //getting text2point bounds
+            let pointTrackerX = [];
+            let pointTrackerY = [];
+            for (let i = 0; i < text2Point.length; i++) {
+                // flock.push(new Boid(p, tempText2Point[i].x, tempText2Point[i].y));
+                pointTrackerX.push(text2Point[i].x)
+                pointTrackerY.push(text2Point[i].y)
+            }
+            // centering happens here!
+            let text2pointWidth = p.max(pointTrackerX) - p.min(pointTrackerX);
+            let text2pointHeight = p.max(pointTrackerY) - p.min(pointTrackerY);
+            let text2pointXVal = (p.width - text2pointWidth) / 2;
+            let text2pointYVal = (p.height - text2pointHeight) / 2 + text2pointHeight;
 
             // adding points to tree from texttopoints
 
-            for (let i = 0; i < points.length; i++) {
-                tree.push(new Walker(p, radius, points[i].x, points[i].y));
+            for (let i = 0; i < text2Point.length; i++) {
+                tree.push(new Walker(p, radius, text2Point[i].x + text2pointXVal, text2Point[i].y + text2pointYVal));
             }
-            // tree[0] = new Walker(width / 2, height / 2);
 
 
             radius *= shrink;
@@ -56,13 +68,8 @@ var scene17 = function(settings) {
             p.background(0);
             //texttopoints
             p.textFont(font);
-            p.textSize(size);
+            p.textSize(fontSize);
             p.fill(255);
-            for (let i = 0; i < points.length; i++) {
-                let pt = points[i];
-                p.ellipse(pt.x, pt.y, 3);
-                // print(pt.x, pt.y)
-            }
 
 
             for (var i = 0; i < tree.length; i++) {

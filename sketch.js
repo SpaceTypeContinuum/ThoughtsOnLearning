@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         [scene5, 5],
         [scene7, 7],
         [scene9, 9],
-        [scene17, 17]
+        [scene15, 15]
     ]
     p5scenes = []
     for (let [scene, num] of scenes) {
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             start: "top 100%",
             endTrigger: `#scene${num+1}panel`,
             end: "top 0%",
-            markers: true, // debugmode
+            // markers: true, // debugmode
             onToggle: self => {
                 console.log(`scene${num}panel` + "isActive: ", self.isActive);
                 s.enabled = self.isActive
@@ -40,7 +40,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         gsap.to(window, {
             scrollTo: {
                 y: i * innerHeight,
-                autoKill: false
+                autoKill: false,
+                // autoKill: true
             },
             duration: 1
         });
