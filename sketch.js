@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             start: "top 100%",
             endTrigger: `#scene${num+1}panel`,
             end: "top 0%",
-            // markers: true, // debugmode
+            markers: true, // debugmode
             onToggle: self => {
                 console.log(`scene${num}panel` + "isActive: ", self.isActive);
                 s.enabled = self.isActive
@@ -36,7 +36,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     // Sticky ScrollTrigger Animation
 
+
     function goToSection(i, anim) {
+        // let w = window.innerWidth;
+        // if (w < 800) {
+        //     return;
+        // }
         gsap.to(window, {
             scrollTo: {
                 y: i * innerHeight,

@@ -35,18 +35,19 @@ p {
 }
 
 canvas {
-    border-top: 2px solid white;
+    /* border-top: 2px solid white; */
 }
 
 .panel {
     height: 100vh;
+    width: 100%;
     position: sticky;
     top: 0;
     background-color: rgba(0, 0, 0, 0.8);
     /* border: 2px solid purple; */
     display: flex;
     box-sizing: border-box;
-    border-top: 2px solid white;
+    /* border-top: 2px solid white; */
     margin-left: auto;
     margin-right: auto;
     align-items: center;
@@ -94,11 +95,28 @@ canvas {
 
 /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
 
-@media screen and (max-width: 600px) {
+
+/* 
+@media screen and (max-width: 800px) {
+    .panel {
+        display: inline-block;
+        height: 100%;
+        position: relative;
+    }
+    .columnNarrow,
     .columnWide {
+        max-width: 100%;
         width: 100%;
+        box-sizing: border-box;
     }
-    .columnNarrow {
-        width: 100%;
+    canvas {}
+    img {
+        width: 80%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-left: 10%;
+        padding-right: 10%;
+        border: 2px solid rgb(133, 38, 94);
     }
-}
+} */
