@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             start: "top 100%",
             endTrigger: `#scene${num+1}panel`,
             end: "top 0%",
-            markers: true, // debugmode
+            // markers: true, // debugmode
             onToggle: self => {
                 console.log(`scene${num}panel` + "isActive: ", self.isActive);
                 s.enabled = self.isActive
