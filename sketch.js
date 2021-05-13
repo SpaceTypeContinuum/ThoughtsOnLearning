@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         [scene5, 5],
         [scene7, 7],
         [scene9, 9],
+        [scene13, 13],
         [scene15, 15]
     ]
     p5scenes = []
